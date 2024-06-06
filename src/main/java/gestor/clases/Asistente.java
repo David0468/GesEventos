@@ -40,6 +40,7 @@ public class Asistente extends Usuario{
                 ", fecha_nacimiento=" + fechaNacimiento +
                 '}';
     }
+    
 
     /*Método llamado infoBasica que muestre el nombre, apellido, email y dni del cliente*/
     public String infoBasica() {

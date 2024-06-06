@@ -9,7 +9,7 @@ public class Asistente extends Usuario{
 
 
     //Constructores
-    Asistente(){}
+    public Asistente(){}
 
     public Asistente(String nombre, String apellidos, String email, String contrasena, String telefono, LocalDate fechaNacimiento, String dni) {
         super(nombre, apellidos, email, contrasena, telefono, fechaNacimiento);

@@ -82,7 +82,7 @@ public class Gestor {
         }
 
         // Crear un nuevo asistente y agregarlo a la lista
-        Asistente nuevoAsistente = new Asistente();
+        Asistente nuevoAsistente = new Asistente(nombre, apellidos, email, password, telefono, fechaNacimiento, dni);
         listado_asistentes.add(nuevoAsistente);
         System.out.println("Usuario registrado correctamente.");
     }

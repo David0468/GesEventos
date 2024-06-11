@@ -1,5 +1,7 @@
 package gestor;
 
+import java.util.UUID;
+
 public class Validaciones {
     //se hace todo con FOR
     //Método llamado esNum que devuelve true o false dependiendo de si una cadena que se pasa como parámetro contiene valores numéricos
@@ -38,7 +40,7 @@ public class Validaciones {
 
 
     //validar alfabeto latino (permite espacios y acentos):
-    public static boolean validarAlfabeto(String palabra){
+    public static boolean validarAlfabetoLatino(String palabra){
         if (!palabra.matches("[áéíóúÁÉÍÓÚa-zA-ZñÑ ]*")) {
             return false;
         } else {
@@ -82,6 +84,19 @@ public class Validaciones {
         // Verificar que el número restante solo contenga dígitos
         return esNum(telefonoSinEspacios);
     }
+
+
+    //Token UUID (Universal Unique Identifier):
+    public class GenerarUUID{
+        public static void main(String[] args) {
+            //Generar una UUID aleatoria
+            UUID uuid = UUID.randomUUID();
+
+            //Imprimir la UUID
+            System.out.println("UUID generada: " + uuid.toString());
+        }
+    }
+
 
 
 }

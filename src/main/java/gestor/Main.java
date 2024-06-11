@@ -17,7 +17,7 @@ public class Main {
         //migestor.login();
 
 
-        //TODO: Menú autenticación: Login, o registro
+
         /*System.out.println("                                ");
         System.out.println("###  DELECTARE MULTIEVENTOS  ###");
         System.out.println("--------------------------------");
@@ -29,7 +29,7 @@ public class Main {
         System.out.println(" Por favor, escoja una opción:  ");
         System.out.println("                                ");*/
 
-
+        //TODO: Menú autenticación: Login, o registro
         GestorEventos gestor = new GestorEventos();
         Scanner sc = new Scanner(System.in);
         boolean salir = false;

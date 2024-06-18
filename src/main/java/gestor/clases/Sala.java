@@ -14,14 +14,14 @@ public class Sala {
     //constructores
     public Sala(){}
 
-    public Sala(String observaciones, String caracteristicas_acusticas, boolean accesibilidad, float dimension, String lista_butacas_disponibles, int capacidad_maxima, String nombre) {
-        this.observaciones = observaciones;
-        this.caracteristicas_acusticas = caracteristicas_acusticas;
-        this.accesibilidad = accesibilidad;
-        this.dimension = dimension;
-        this.lista_butacas_disponibles = lista_butacas_disponibles;
-        this.capacidad_maxima = capacidad_maxima;
+    public Sala(String nombre, int capacidad_maxima, String lista_butacas_disponibles, float dimension, boolean accesibilidad, String caracteristicas_acusticas, String observaciones) {
         this.nombre = nombre;
+        this.capacidad_maxima = capacidad_maxima;
+        this.lista_butacas_disponibles = lista_butacas_disponibles;
+        this.dimension = dimension;
+        this.accesibilidad = accesibilidad;
+        this.caracteristicas_acusticas = caracteristicas_acusticas;
+        this.observaciones = observaciones;
     }
 
     //GETTER Y SETTER
@@ -53,7 +53,7 @@ public class Sala {
         return dimension;
     }
 
-    public void setDimension(int dimension) {
+    public void setDimension(float dimension) {
         this.dimension = dimension;
     }
 
@@ -81,7 +81,6 @@ public class Sala {
         this.observaciones = observaciones;
     }
 
-
     //metodo comprobar capacidad
     public boolean verificarCapacidad(int numeroAsistentes) {
         if (numeroAsistentes <= capacidad_maxima){
@@ -90,5 +89,4 @@ public class Sala {
             return false;
         }
     }
-
 }

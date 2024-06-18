@@ -1,33 +1,35 @@
 package gestor;
 
 import gestor.clases.*;
-
 import java.time.LocalDate;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GestorEventos {
-    //Atributos
-    public ArrayList<Usuario> usuarios;
+    // Atributos
+    public  ArrayList<Usuario> usuarios;
     public ArrayList<Evento> eventos;
-    public ArrayList<Reserva> reserva;
+    public ArrayList<Reserva> reservas;
 
-    //Constructores
-    GestorEventos(){}
-
-    public GestorEventos(ArrayList<Usuario> usuarios, ArrayList<Evento> eventos, ArrayList<Reserva> reserva) {
-        this.usuarios = usuarios;
-        this.eventos = eventos;
-        this.reserva = reserva;
+    // Constructor por defecto
+    public GestorEventos() {
+        this.usuarios = new ArrayList<>();
+        this.eventos = new ArrayList<>();
+        this.reservas = new ArrayList<>();
         info_inicial();
     }
 
-
-
-
+    // Constructor parametrizado
+    public GestorEventos(ArrayList<Usuario> usuarios, ArrayList<Evento> eventos, ArrayList<Reserva> reservas) {
+        this.usuarios = usuarios != null ? usuarios : new ArrayList<>();
+        this.eventos = eventos != null ? eventos : new ArrayList<>();
+        this.reservas = reservas != null ? reservas : new ArrayList<>();
+        info_inicial();
+    }
 
     //Getter & Setter
-
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -44,17 +46,17 @@ public class GestorEventos {
         this.eventos = eventos;
     }
 
-    public ArrayList<Reserva> getReserva() {
-        return reserva;
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
     }
 
-    public void setReserva(ArrayList<Reserva> reserva) {
-        this.reserva = reserva;
+    public void setReservas(ArrayList<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
-    //Metodos
-    public void info_inicial(){
-        //Usuarios
+    // Método de inicialización
+    public void info_inicial() {
+        // Usuarios
         Usuario asistente1 = new Asistente("David", "Murcia", "davidmurcia04@gmail.com", "1234", "611457654", LocalDate.of(2004, 11, 3), "45673567X");
         Usuario asistente2 = new Asistente("Juan", "Juan", "shino04@gmail.com", "1234", "677546754", LocalDate.of(2004, 4, 23), "41936727E");
         Usuario asistente3 = new Asistente("Ruben", "Pardo", "fachacomunista05@gmail.com", "1234", "623725669", LocalDate.of(2005, 12, 8), "47219583U");
@@ -67,28 +69,26 @@ public class GestorEventos {
         usuarios.add(administrador1);
     }
 
-    //TODO: Metodo Login y Registro
+    /*Login & Registro*/
     //Login
     public Usuario login() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese su correo electrónico: ");
-        String email = sc.nextLine();
+        String email = scanner.next();
 
         System.out.print("Ingrese su contraseña: ");
-        String password = sc.nextLine();
+        String contrasena = scanner.next();
 
-        // Recorre la lista de usuarios para encontrar una coincidencia
         for (Usuario usuario : usuarios) {
-            // Comprueba si el correo y la contraseña coinciden
-            if (usuario.getEmail().equals(email) && usuario.getContrasena().equals(password)) {
-                // Verifica si el usuario es un administrador o un asistente
+            if (usuario.getEmail().equals(email) && usuario.getContrasena().equals(contrasena)) {
                 if (usuario instanceof Administrador) {
                     System.out.println("¡Login exitoso! Bienvenido Administrador " + usuario.getNombre());
+                    return usuario;
                 } else if (usuario instanceof Asistente) {
                     System.out.println("¡Login exitoso! Bienvenido Asistente " + usuario.getNombre());
+                    return usuario;
                 }
-                return usuario;
             }
         }
 
@@ -98,47 +98,146 @@ public class GestorEventos {
 
     //Registro
     public void registro() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese su nombre: ");
-        String nombre = sc.nextLine();
+        String nombre = "";
+        while (nombre.isEmpty() || !Validaciones.validarAlfabetoLatino(nombre)){
+            System.out.print("Ingrese su nombre: ");
+            nombre = scanner.next().trim();
+            if (!Validaciones.validarAlfabetoLatino(nombre)){
+                System.out.println("El nombre no esta permitido.");
+            }
+        }
 
-        System.out.print("Ingrese su apellido: ");
-        String apellido = sc.nextLine();
+        String apellido = "";
+        while (apellido.isEmpty() || !Validaciones.validarAlfabetoLatino(apellido)){
+            System.out.print("Ingrese su apellido: ");
+            apellido = scanner.next().trim();
+            if (!Validaciones.validarAlfabetoLatino(apellido)){
+                System.out.println("El apellido no esta permitido.");
+            }
+        }
 
-        System.out.print("Ingrese su correo electrónico: ");
-        String email = sc.nextLine();
+        String email = "";
+        while (email.isEmpty() || !Validaciones.validarEmail(email)) {
+            System.out.print("Ingrese su correo electrónico: ");
+            email = scanner.next().trim();
+            if (!Validaciones.validarEmail(email)) {
+                System.out.println("Correo electrónico inválido.");
+            }
+        }
 
-        System.out.print("Ingrese su contraseña: ");
-        String password = sc.nextLine();
+        String contrasena = "";
+        while (contrasena.isEmpty() || !Validaciones.validarContrasena(contrasena)){
+            System.out.println("Ingrese una contraseña: ");
+            contrasena = scanner.next().trim();
+            if (!Validaciones.validarContrasena(contrasena)) {
+                System.out.println("Contraseña no valida");
+            }
+        }
 
-        System.out.print("Ingrese su teléfono: ");
-        String telefono = sc.nextLine();
+        String telefono = "";
+        while (telefono.isEmpty() || !Validaciones.validarTelefono(telefono)){
+            System.out.print("Ingrese su telefono: ");
+            telefono = scanner.next().trim();
+            if (!Validaciones.validarTelefono(telefono)) {
+                System.out.println("Telefono no valido.");
+            }
+        }
 
-        System.out.print("Ingrese su fecha de nacimiento (YYYY-MM-DD): ");
-        LocalDate fechaNacimiento = LocalDate.parse(sc.nextLine());
+        LocalDate fechaNacimiento = null;
+        while (fechaNacimiento == null) {
+            System.out.print("Ingrese su fecha de nacimiento (YYYY-MM-DD): ");
+            try {
+                fechaNacimiento = LocalDate.parse(scanner.next().trim());
+            } catch (Exception e) {
+                System.out.println("Fecha de nacimiento inválida. Formato correcto: YYYY-MM-DD.");
+            }
+        }
 
-        System.out.print("Ingrese su DNI: ");
-        String dni = sc.nextLine();
-
-        // Solicita al usuario que ingrese el tipo de usuario
-        System.out.print("Ingrese el tipo de usuario (1 para Administrador, 2 para Asistente): ");
-        int tipoUsuario = Integer.parseInt(sc.nextLine());
-
-        // Crea un nuevo usuario basado en el tipo seleccionad
-        Usuario nuevoUsuario;
-        if (tipoUsuario == 1) {
-            nuevoUsuario = new Administrador(nombre, apellido, email, password, telefono, fechaNacimiento, usuarios.size() + 1);
-        } else {
-            nuevoUsuario = new Asistente(nombre, apellido, email, password, telefono, fechaNacimiento, dni);
+        String dni = "";
+        while (dni.isEmpty() || !Validaciones.validarDNI(dni)){
+            System.out.print("Ingrese su DNI: ");
+            dni = scanner.next().trim();
+            if (!Validaciones.validarDNI(dni)) {
+                System.out.println("DNI no valido.");
+            }
         }
 
 
-        // Agrega el nuevo usuario a la lista de usuarios
+        Usuario nuevoUsuario = new Asistente(nombre, apellido, email, contrasena, telefono, fechaNacimiento, dni);
         usuarios.add(nuevoUsuario);
 
         System.out.println("¡Registro exitoso! Bienvenido " + nuevoUsuario.getNombre());
     }
 
 
+    /*Eventos*/
+    //Agregar Evento
+    public void agregarEvento() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre del evento: ");
+        String nombreEvento = String.valueOf(Validaciones.validarAlfabetoLatino(scanner.next()));
+
+        System.out.print("Ingrese el nombre del invitado: ");
+        String invitado = String.valueOf(Validaciones.validarAlfabetoLatino(scanner.next()));
+
+        Sala sala = new Sala();
+
+        System.out.print("Ingrese la fecha del evento (YYYY-MM-DD): ");
+        LocalDate fecha = LocalDate.parse(scanner.next());
+
+        System.out.print("Ingrese la hora del evento (HH:MM): ");
+        LocalTime hora = LocalTime.parse(scanner.next());
+
+        System.out.print("Ingrese el tipo de evento: ");
+        String tipoEvento = scanner.next();
+
+        System.out.print("Ingrese el número máximo de asistentes: ");
+        String maxAsistentes = String.valueOf(Validaciones.esNum(scanner.next()));
+
+        ArrayList<Asistente> listaAsistentes = new ArrayList<>();
+
+        Evento nuevoEvento = new Evento(nombreEvento, invitado, sala, fecha, hora, tipoEvento, maxAsistentes, listaAsistentes);
+        eventos.add(nuevoEvento);
+
+        System.out.println("¡Evento agregado exitosamente!");
+    }
+
+
+    //eliminador evento
+    public void eliminarEvento() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre del evento a eliminar: ");
+        String nombreEvento = scanner.nextLine();
+
+        Evento eventoAEliminar = null;
+
+        for (Evento evento : eventos) {
+            if (evento.getNombre().equals(nombreEvento)) {
+                eventoAEliminar = evento;
+                break;
+            }
+        }
+
+        if (eventoAEliminar != null) {
+            eventos.remove(eventoAEliminar);
+            System.out.println("¡Evento eliminado exitosamente!");
+        } else {
+            System.out.println("No se encontró un evento con ese nombre.");
+        }
+    }
+
+    //listar eventos
+    public void listarEventos() {
+        if (eventos.isEmpty()) {
+            System.out.println("No hay eventos programados.");
+        } else {
+            for (Evento evento : eventos) {
+                System.out.println("Evento: " + evento.getNombre() + ", Invitado: " + evento.getInvitado() + ", Fecha: " + evento.getFecha() + ", Hora: " + evento.getHora() + ", Tipo: " + evento.getTipo_evento() + ", Máximo Asistentes: " + evento.getNumero_asistentes_maximo());
+            }
+        }
+    }
 }

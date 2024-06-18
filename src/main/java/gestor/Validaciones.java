@@ -38,6 +38,14 @@ public class Validaciones {
 
 
 
+    //Validador Contraseña:
+    public static boolean validarContrasena(String contrasena){
+        if (!contrasena.matches("[A-Za-z0-9.-_]*")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     //validar alfabeto latino (permite espacios y acentos):
     public static boolean validarAlfabetoLatino(String palabra){

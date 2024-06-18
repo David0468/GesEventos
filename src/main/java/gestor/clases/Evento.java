@@ -1,6 +1,8 @@
 package gestor.clases;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,16 +11,16 @@ public class Evento {
     public String nombre;
     public String invitado;
     public Sala sala_evento = new Sala();
-    public Date fecha;
-    public Time hora;
+    public LocalDate fecha;
+    public LocalTime hora;
     public String tipo_evento;
-    public int numero_asistentes_maximo;
+    public String numero_asistentes_maximo;
     public ArrayList<Asistente> lista_asistentes;
 
     //constructores
     public Evento(){}
 
-    public Evento(String nombre, String invitado, Sala sala_evento, Date fecha, Time hora, String tipo_evento, int numero_asistentes_maximo, ArrayList<Asistente> lista_asistentes) {
+    public Evento(String nombre, String invitado, Sala sala_evento, LocalDate fecha, LocalTime hora, String tipo_evento, String numero_asistentes_maximo, ArrayList<Asistente> lista_asistentes) {
         this.nombre = nombre;
         this.invitado = invitado;
         this.sala_evento = sala_evento;
@@ -55,19 +57,19 @@ public class Evento {
         this.sala_evento = sala_evento;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public Time getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
@@ -79,11 +81,11 @@ public class Evento {
         this.tipo_evento = tipo_evento;
     }
 
-    public int getNumero_asistentes_maximo() {
+    public String getNumero_asistentes_maximo() {
         return numero_asistentes_maximo;
     }
 
-    public void setNumero_asistentes_maximo(int numero_asistentes_maximo) {
+    public void setNumero_asistentes_maximo(String numero_asistentes_maximo) {
         this.numero_asistentes_maximo = numero_asistentes_maximo;
     }
 

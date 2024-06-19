@@ -177,25 +177,63 @@ public class GestorEventos {
     public void agregarEvento() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese el nombre del evento: ");
-        String nombreEvento = String.valueOf(Validaciones.validarAlfabetoLatino(scanner.next()));
+        String nombreEvento = "";
+        while (nombreEvento.isEmpty() || !Validaciones.validarAlfabetoLatino(nombreEvento)){
+            System.out.print("Ingrese el nombre del evento: ");
+            nombreEvento = scanner.next().trim();
+            if (!Validaciones.validarAlfabetoLatino(nombreEvento)){
+                System.out.println("El nombre no esta permitido.");
+            }
+        }
 
-        System.out.print("Ingrese el nombre del invitado: ");
-        String invitado = String.valueOf(Validaciones.validarAlfabetoLatino(scanner.next()));
+        String invitado = "";
+        while (invitado.isEmpty() || !Validaciones.validarAlfabetoLatino(invitado)){
+            System.out.print("Ingrese el invitado del evento: ");
+            invitado = scanner.next().trim();
+            if (!Validaciones.validarAlfabetoLatino(invitado)){
+                System.out.println("El invitado no esta permitido.");
+            }
+        }
 
         Sala sala = new Sala();
 
-        System.out.print("Ingrese la fecha del evento (YYYY-MM-DD): ");
-        LocalDate fecha = LocalDate.parse(scanner.next());
+        LocalDate fecha = null;
+        while (fecha == null) {
+            System.out.print("Ingrese la fecha del evento (YYYY-MM-DD): ");
+            try {
+                fecha = LocalDate.parse(scanner.next().trim());
+            } catch (Exception e) {
+                System.out.println("Fecha no disponible. Formato correcto: YYYY-MM-DD.");
+            }
+        }
 
-        System.out.print("Ingrese la hora del evento (HH:MM): ");
-        LocalTime hora = LocalTime.parse(scanner.next());
+        LocalTime hora = null;
+        while (hora == null) {
+            System.out.print("Ingrese la hora del evento (HH:MM): ");
+            try {
+                fecha = LocalDate.parse(scanner.next().trim());
+            } catch (Exception e) {
+                System.out.println("Hora no disponible. Formato correcto: HH:MM.");
+            }
+        }
 
-        System.out.print("Ingrese el tipo de evento: ");
-        String tipoEvento = scanner.next();
+        String tipoEvento = "";
+        while (tipoEvento.isEmpty() || !Validaciones.validarAlfabetoLatino(tipoEvento)){
+            System.out.print("Ingrese el tipo del evento: ");
+            tipoEvento = scanner.next().trim();
+            if (!Validaciones.validarAlfabetoLatino(tipoEvento)){
+                System.out.println("El tipo del evento no esta permitido.");
+            }
+        }
 
-        System.out.print("Ingrese el número máximo de asistentes: ");
-        String maxAsistentes = String.valueOf(Validaciones.esNum(scanner.next()));
+        String maxAsistentes = "";
+        while (maxAsistentes.isEmpty() || !Validaciones.esNum(maxAsistentes)){
+            System.out.print("Ingrese el maximo de asistentes para este evento: ");
+            maxAsistentes = scanner.next().trim();
+            if (!Validaciones.esNum(maxAsistentes)){
+                System.out.println("Error, intentalo otra vez.");
+            }
+        }
 
         ArrayList<Asistente> listaAsistentes = new ArrayList<>();
 

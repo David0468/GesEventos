@@ -25,6 +25,14 @@ public class Validaciones {
     }
 
 
+    public static boolean validarOpcionNum(String opcion) {
+        // Verifica si la cadena contiene solo un carácter que sea 1, 2, 3 o 4
+        if (opcion.matches("[1-4]")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     //validar una cadena y comprobar que sólo tiene letras y números (permite espacios y acentos):

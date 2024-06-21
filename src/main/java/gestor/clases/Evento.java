@@ -96,4 +96,22 @@ public class Evento {
     public void setLista_asistentes(ArrayList<Asistente> lista_asistentes) {
         this.lista_asistentes = lista_asistentes;
     }
+
+    @Override
+    public String toString() {
+        return "Evento{" +
+                "nombre='" + nombre + '\'' +
+                ", invitado='" + invitado + '\'' +
+                ", sala_evento=" + sala_evento +
+                ", fecha=" + fecha +
+                ", hora=" + hora +
+                ", tipo_evento='" + tipo_evento + '\'' +
+                ", numero_asistentes_maximo='" + numero_asistentes_maximo + '\'' +
+                ", lista_asistentes=" + lista_asistentes +
+                '}';
+    }
+
+    public String infoEvento(){
+        return "Nombre: "+nombre+"Invitado: "+invitado+"Sala: "+sala_evento+"Fecha: "+fecha+"Hora: "+hora+"Maximo asistentes: "+numero_asistentes_maximo+"Lista: "+lista_asistentes+"\n";
+    }
 }

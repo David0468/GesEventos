@@ -1,5 +1,7 @@
 package gestor.clases;
 
+import java.util.ArrayList;
+
 public class Sala {
     //ATRIBUTOS
     public String nombre;
@@ -9,10 +11,19 @@ public class Sala {
     public boolean accesibilidad;
     public String caracteristicas_acusticas;
     public String observaciones;
-
+    ArrayList<Butaca> lista_butacas;
 
     //constructores
     public Sala(){}
+
+
+    public Sala(String nombre, int capacidad_maxima, float dimension, ArrayList<Butaca> lista_butacas){
+        this.nombre = nombre;
+        this.capacidad_maxima = capacidad_maxima;
+        this.dimension = dimension;
+        this.lista_butacas = lista_butacas;
+
+    }
 
     public Sala(String nombre, int capacidad_maxima, String lista_butacas_disponibles, float dimension, boolean accesibilidad, String caracteristicas_acusticas, String observaciones) {
         this.nombre = nombre;

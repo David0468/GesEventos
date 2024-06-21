@@ -11,15 +11,11 @@ public class Butaca {
     /*Constructor por defecto (por defecto=nada)*/
     Butaca(){}
 
-
-
-    /*Constructor con todos los valores*/
     public Butaca(String id, boolean accesibilidad, boolean disponible) {
         this.id = id;
         this.accesibilidad = accesibilidad;
         this.disponible = disponible;
     }
-
 
     /*un get y un set para cada atributo*/
     public String getId() {
@@ -50,7 +46,7 @@ public class Butaca {
     /*Método toString*/
     @Override
     public String toString() {
-        return "gestor.clases.Butaca{" +
+        return "Butaca{" +
                 "id='" + id + '\'' +
                 ", accesibilidad=" + accesibilidad +
                 ", disponible=" + disponible +

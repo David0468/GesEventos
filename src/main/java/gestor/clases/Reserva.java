@@ -9,20 +9,18 @@ public class Reserva {
     public Asistente asistente_reserva=new Asistente();
     public Evento evento_reserva=new Evento();
     public Butaca butaca_reserva=new Butaca();
-    public Date fecha;
-    public Time hora;
+
 
 
     //constructores
     public Reserva(){}
 
-    public Reserva(String id, Asistente asistente_reserva, Evento evento_reserva, Butaca butaca_reserva, Date fecha, Time hora) {
-        this.id = id;
+    public Reserva(Asistente asistente_reserva, Evento evento_reserva, Butaca butaca_reserva) {
+        this.id = generarTocken();
         this.asistente_reserva = asistente_reserva;
         this.evento_reserva = evento_reserva;
         this.butaca_reserva = butaca_reserva;
-        this.fecha = fecha;
-        this.hora = hora;
+
     }
 
     //getter y setter
@@ -58,23 +56,7 @@ public class Reserva {
         this.butaca_reserva = butaca_reserva;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public Time getHora() {
-        return hora;
-    }
-
-    public void setHora(Time hora) {
-        this.hora = hora;
-    }
-
-
+    //Comprobar disponible
     public boolean comprobarDisponibilidad(){
         if (butaca_reserva.disponible == true){
             return true;
@@ -102,5 +84,20 @@ public class Reserva {
         String token = GeneradorToken.toString();
 
         return token;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "id='" + id + '\'' +
+                ", asistente_reserva=" + asistente_reserva +
+                ", evento_reserva=" + evento_reserva +
+                ", butaca_reserva=" + butaca_reserva +
+
+                '}';
+    }
+
+    public String infoReserva(){
+        return "id: "+id+"Reserva Evento: "+evento_reserva+"Reserva Butaca: "+butaca_reserva;
     }
 }

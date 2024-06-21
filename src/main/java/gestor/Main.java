@@ -81,6 +81,31 @@ public class Main {
                                     System.out.println("Opción no válida, intente nuevamente.");
                             }
                         }
+                    }else if (usuario instanceof gestor.clases.Asistente) {
+                        while (!salir) {
+                            System.out.println("Menú Asistente:");
+                            System.out.println("1. Seleccionar Evento");
+                            System.out.println("2. Ver Reservas");
+                            System.out.println("3. Salir");
+                            System.out.print("Seleccione una opción: ");
+                            String opcionAsistente = sc.next().trim();
+
+                            switch (opcionAsistente) {
+                                case "1":
+                                    gestor.seleccionarEvento();
+                                    break;
+                                case "2":
+                                    gestor.verReservas();
+                                    break;
+                                case "3":
+                                    salir = true;
+                                    System.out.println("Saliendo...");
+                                    System.exit(0);
+                                    break;
+                                default:
+                                    System.out.println("Opción no válida, intente nuevamente.");
+                            }
+                        }
                     } else
                         break;
                 case "b":

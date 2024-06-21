@@ -12,12 +12,16 @@ public class GestorEventos {
     public  ArrayList<Usuario> usuarios;
     public ArrayList<Evento> eventos;
     public ArrayList<Reserva> reservas;
+    public Sala[] listado_salas=new Sala[5];
+    Evento eventoSeleccionado;
+    Usuario usuarioActivo;
 
     // Constructor por defecto
     public GestorEventos() {
         this.usuarios = new ArrayList<>();
         this.eventos = new ArrayList<>();
         this.reservas = new ArrayList<>();
+
         info_inicial();
     }
 
@@ -56,6 +60,26 @@ public class GestorEventos {
 
     // Método de inicialización
     public void info_inicial() {
+        //codigo que genera sala con butacas
+        for (int i = 0; i < 5; i++) {
+            //System.out.println("Sala " +i);
+            //Generar butacas
+            int sumar = (int) (Math.random() * 5) + 3;
+
+            ArrayList<Butaca> misbutacas = new ArrayList<>();
+
+            for (char fila = 'A'; fila <= 'E'; fila++) {
+                for (int columna = 1; columna <= 6; columna++) {
+                    int identificador = 0;
+                    identificador++;
+                    String posicion = fila + "" + columna + "";
+                    misbutacas.add(new Butaca(posicion, false, false));
+                }
+            }
+            listado_salas[i]=new Sala("Sala " + i, misbutacas.size(), 100, misbutacas);
+
+        }
+
         // Usuarios
         Usuario asistente1 = new Asistente("David", "Murcia", "davidmurcia04@gmail.com", "1234", "611457654", LocalDate.of(2004, 11, 3), "45673567X");
         Usuario asistente2 = new Asistente("Juan", "Juan", "shino04@gmail.com", "1234", "677546754", LocalDate.of(2004, 4, 23), "41936727E");
@@ -67,7 +91,29 @@ public class GestorEventos {
         usuarios.add(asistente2);
         usuarios.add(asistente3);
         usuarios.add(administrador1);
+
+        // Eventos
+        Evento evento1 = new Evento("Concierto Rock", "Band A", new Sala(), LocalDate.of(2023, 7, 20), LocalTime.of(20, 0), "Concierto", "100", new ArrayList<>());
+        Evento evento2 = new Evento("Conferencia Tech", "Speaker B", new Sala(), LocalDate.of(2023, 8, 15), LocalTime.of(10, 0), "Conferencia", "50", new ArrayList<>());
+        Evento evento3 = new Evento("Festival Cine", "Director C", new Sala(), LocalDate.of(2023, 9, 10), LocalTime.of(18, 0), "Festival", "200", new ArrayList<>());
+
+        eventos.add(evento1);
+        eventos.add(evento2);
+        eventos.add(evento3);
+
+        // Reservas
+        Reserva reserva1 = new Reserva((Asistente) asistente1, evento1, new Butaca("A1", true,true));
+        Reserva reserva2 = new Reserva((Asistente) asistente2, evento2, new Butaca("B2", true,true));
+        Reserva reserva3 = new Reserva((Asistente) asistente3, evento3, new Butaca("C3", true,true));
+
+        reservas.add(reserva1);
+        reservas.add(reserva2);
+        reservas.add(reserva3);
     }
+
+
+
+
 
     /*Login & Registro*/
     //Login
@@ -82,6 +128,8 @@ public class GestorEventos {
 
         for (Usuario usuario : usuarios) {
             if (usuario.getEmail().equals(email) && usuario.getContrasena().equals(contrasena)) {
+
+                usuarioActivo = usuario;
                 if (usuario instanceof Administrador) {
                     System.out.println("¡Login exitoso! Bienvenido Administrador " + usuario.getNombre());
                     return usuario;
@@ -268,6 +316,8 @@ public class GestorEventos {
         }
     }
 
+
+    /*Menu Asistente*/
     //listar eventos
     public void listarEventos() {
         if (eventos.isEmpty()) {
@@ -276,6 +326,57 @@ public class GestorEventos {
             for (Evento evento : eventos) {
                 System.out.println("Evento: " + evento.getNombre() + ", Invitado: " + evento.getInvitado() + ", Fecha: " + evento.getFecha() + ", Hora: " + evento.getHora() + ", Tipo: " + evento.getTipo_evento() + ", Máximo Asistentes: " + evento.getNumero_asistentes_maximo());
             }
+        }
+    }
+
+
+
+    /*Menu Asistente*/
+    //seleccionar Evento
+    public void seleccionarEvento() {
+        Scanner scanner = new Scanner(System.in);
+
+        if (eventos.isEmpty()) {
+            System.out.println("No hay eventos disponibles.");
+            return;
+        }
+
+        System.out.println("Seleccione un evento:");
+        for (int i = 0; i < eventos.size(); i++) {
+            System.out.println((i + 1) + ". " + eventos.get(i).getNombre());
+        }
+
+        int seleccion = -1;
+        while (seleccion < 1 || seleccion > eventos.size()) {
+            System.out.print("Ingrese el número del evento: ");
+            try {
+                seleccion = Integer.parseInt(scanner.next().trim());
+                if (seleccion < 1 || seleccion > eventos.size()) {
+                    System.out.println("Selección inválida. Intente nuevamente.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada no válida. Intente nuevamente.");
+            }
+        }
+
+        this.eventoSeleccionado = eventos.get(seleccion - 1);
+        System.out.println("Evento seleccionado: " + eventoSeleccionado.getNombre());
+        hacerReserva();
+    }
+
+    public void hacerReserva(){
+        reservas.add(new Reserva((Asistente) usuarioActivo, (Evento) eventoSeleccionado, new Butaca("A1",true,true)));
+    }
+
+    public void verReservas() {
+        if (reservas.isEmpty()) {
+            System.out.println("No hay reservas disponibles.");
+            return;
+        }
+
+        System.out.println("Reservas:");
+        for (Reserva reserva : reservas) {
+            System.out.println("Reserva ID: " + reserva.getId() + ", Evento: " + reserva.getEvento_reserva().getNombre() + ", Asistente: " + reserva.getAsistente_reserva().getNombre());
         }
     }
 }

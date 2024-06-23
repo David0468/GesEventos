@@ -1,8 +1,10 @@
 package gestor;
 
 import gestor.clases.*;
+
+import java.io.*;
 import java.time.LocalDate;
-import java.sql.Time;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,6 +24,11 @@ public class GestorEventos {
         this.eventos = new ArrayList<>();
         this.reservas = new ArrayList<>();
 
+        try {
+            leerUsuario();
+        }catch(IOException ioe){
+            System.out.println("Error al leer el usuario");
+        }
         info_inicial();
     }
 
@@ -80,8 +87,8 @@ public class GestorEventos {
 
         }
 
-        // Usuarios
-        Usuario asistente1 = new Asistente("David", "Murcia", "davidmurcia04@gmail.com", "1234", "611457654", LocalDate.of(2004, 11, 3), "45673567X");
+        // Usuarios --- PARA GENERAR LOS USUARIOS
+        /*  Usuario asistente1 = new Asistente("David", "Murcia", "davidmurcia04@gmail.com", "1234", "611457654", LocalDate.of(2004, 11, 3), "45673567X");
         Usuario asistente2 = new Asistente("Juan", "Juan", "shino04@gmail.com", "1234", "677546754", LocalDate.of(2004, 4, 23), "41936727E");
         Usuario asistente3 = new Asistente("Ruben", "Pardo", "fachacomunista05@gmail.com", "1234", "623725669", LocalDate.of(2005, 12, 8), "47219583U");
 
@@ -91,24 +98,58 @@ public class GestorEventos {
         usuarios.add(asistente2);
         usuarios.add(asistente3);
         usuarios.add(administrador1);
+        try {
+            guardarUsuario();
+        }catch (IOException ioe){
+            System.out.println("Problemas al guardar el usuario");
+        }*/
+        try{
+            leerUsuario();
+        }catch (IOException ioe){
+            System.out.println("Error al leer el usuario");
+        }
 
-        // Eventos
-        Evento evento1 = new Evento("Concierto Rock", "Band A", new Sala(), LocalDate.of(2023, 7, 20), LocalTime.of(20, 0), "Concierto", "100", new ArrayList<>());
-        Evento evento2 = new Evento("Conferencia Tech", "Speaker B", new Sala(), LocalDate.of(2023, 8, 15), LocalTime.of(10, 0), "Conferencia", "50", new ArrayList<>());
-        Evento evento3 = new Evento("Festival Cine", "Director C", new Sala(), LocalDate.of(2023, 9, 10), LocalTime.of(18, 0), "Festival", "200", new ArrayList<>());
+
+        /*// Eventos
+        Evento evento1 = new Evento("Concierto Rock", "Band A", new Sala(), "2003-12-12", "20:10", "Concierto", "100", new ArrayList<>());
+        Evento evento2 = new Evento("Conferencia Tech", "Speaker B", new Sala(), "2005-03-09", "12:50", "Conferencia", "50", new ArrayList<>());
+        Evento evento3 = new Evento("Festival Cine", "Director C", new Sala(), "2021-01-08", "09:12", "Festival", "200", new ArrayList<>());
 
         eventos.add(evento1);
         eventos.add(evento2);
         eventos.add(evento3);
 
-        // Reservas
-        Reserva reserva1 = new Reserva((Asistente) asistente1, evento1, new Butaca("A1", true,true));
-        Reserva reserva2 = new Reserva((Asistente) asistente2, evento2, new Butaca("B2", true,true));
-        Reserva reserva3 = new Reserva((Asistente) asistente3, evento3, new Butaca("C3", true,true));
+        try {
+            guardarEventos();
+        }catch (IOException ioe){
+            System.out.println("Problemas al guardar el Evento");
+        }
+        */
+        try{
+            leerEventos();
+        }catch (IOException ioe){
+            System.out.println("Error al leer el Evento");
+        }
+
+        /*// Reservas
+        Reserva reserva1 = new Reserva(new Asistente(), new Evento(), new Butaca("A1", true,true));
+        Reserva reserva2 = new Reserva(new Asistente(), new Evento(), new Butaca("B2", true,true));
+        Reserva reserva3 = new Reserva(new Asistente(), new Evento(), new Butaca("C3", true,true));
 
         reservas.add(reserva1);
         reservas.add(reserva2);
         reservas.add(reserva3);
+        try {
+            guardarReserva();
+        }catch (IOException ioe){
+            System.out.println("Problemas al guardar el Evento");
+        }
+           */
+        try{
+            leerReservas();
+        }catch (IOException ioe){
+            System.out.println("Error al leer la Reserva");
+        }
     }
 
 
@@ -217,6 +258,11 @@ public class GestorEventos {
         usuarios.add(nuevoUsuario);
 
         System.out.println("¡Registro exitoso! Bienvenido " + nuevoUsuario.getNombre());
+        try {
+            guardarUsuario();
+        }catch (IOException ioe){
+            System.out.println("Problemas al guardar el usuario");
+        }
     }
 
 
@@ -226,10 +272,10 @@ public class GestorEventos {
         Scanner scanner = new Scanner(System.in);
 
         String nombreEvento = "";
-        while (nombreEvento.isEmpty() || !Validaciones.validarAlfabetoLatino(nombreEvento)){
+        while (nombreEvento.isEmpty() || !Validaciones.validarLetrasYNumeros(nombreEvento)){
             System.out.print("Ingrese el nombre del evento: ");
             nombreEvento = scanner.next().trim();
-            if (!Validaciones.validarAlfabetoLatino(nombreEvento)){
+            if (!Validaciones.validarLetrasYNumeros(nombreEvento)){
                 System.out.println("El nombre no esta permitido.");
             }
         }
@@ -245,22 +291,20 @@ public class GestorEventos {
 
         Sala sala = new Sala();
 
-        LocalDate fecha = null;
-        while (fecha == null) {
+        String fecha = "";
+        while (fecha.isEmpty() || !Validaciones.validarFecha(fecha)) {
             System.out.print("Ingrese la fecha del evento (YYYY-MM-DD): ");
-            try {
-                fecha = LocalDate.parse(scanner.next().trim());
-            } catch (Exception e) {
+            fecha = scanner.next().trim();
+            if (!Validaciones.validarFecha(fecha)) {
                 System.out.println("Fecha no disponible. Formato correcto: YYYY-MM-DD.");
             }
         }
 
-        LocalTime hora = null;
-        while (hora == null) {
+        String hora = "";
+        while (hora.isEmpty() || !Validaciones.validarHora(hora)) {
             System.out.print("Ingrese la hora del evento (HH:MM): ");
-            try {
-                fecha = LocalDate.parse(scanner.next().trim());
-            } catch (Exception e) {
+            hora = scanner.next().trim();
+            if (!Validaciones.validarHora(hora)) {
                 System.out.println("Hora no disponible. Formato correcto: HH:MM.");
             }
         }
@@ -289,6 +333,11 @@ public class GestorEventos {
         eventos.add(nuevoEvento);
 
         System.out.println("¡Evento agregado exitosamente!");
+        try {
+            guardarEventos();
+        }catch (IOException ioe){
+            System.out.println("Problemas al guardar el Evento");
+        }
     }
 
 
@@ -327,6 +376,11 @@ public class GestorEventos {
                 System.out.println("Evento: " + evento.getNombre() + ", Invitado: " + evento.getInvitado() + ", Fecha: " + evento.getFecha() + ", Hora: " + evento.getHora() + ", Tipo: " + evento.getTipo_evento() + ", Máximo Asistentes: " + evento.getNumero_asistentes_maximo());
             }
         }
+        try{
+            leerReservas();
+        }catch (IOException ioe){
+            System.out.println("Error al leer la Reserva");
+        }
     }
 
 
@@ -362,6 +416,7 @@ public class GestorEventos {
         this.eventoSeleccionado = eventos.get(seleccion - 1);
         System.out.println("Evento seleccionado: " + eventoSeleccionado.getNombre());
         hacerReserva();
+
     }
 
     public void hacerReserva(){
@@ -378,5 +433,137 @@ public class GestorEventos {
         for (Reserva reserva : reservas) {
             System.out.println("Reserva ID: " + reserva.getId() + ", Evento: " + reserva.getEvento_reserva().getNombre() + ", Asistente: " + reserva.getAsistente_reserva().getNombre());
         }
+        try {
+            guardarReserva();
+        }catch (IOException ioe){
+            System.out.println("Problemas al guardar el Evento");
+        }
     }
+
+
+
+    //TODO: Leer y guardar usuarios
+    public void leerUsuario() throws IOException {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fis = new FileInputStream("src/main/java/gestor/data/usuarios.dat");
+            ois = new ObjectInputStream(fis);
+            Usuario u;
+
+            while (true){
+                u=(Usuario)ois.readObject();
+                usuarios.add(u);
+            }
+        }catch (EOFException eof){
+            //System.out.println("Usuario agregado correctamente");
+        }catch (ClassNotFoundException eclas){
+            System.out.println("Clase no encontrada");
+        }finally {
+            if (ois != null){
+                ois.close();
+                fis.close();
+            }
+        }
+    }
+    public void guardarUsuario() throws IOException {
+        FileOutputStream fos = new FileOutputStream("src/main/java/gestor/data/usuarios.dat");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        for (Usuario u:usuarios){
+
+            oos.writeObject(u);
+        }
+         oos.flush();
+
+        if (oos != null){
+            oos.close();
+            fos.close();
+        }
+    }
+
+    //TODO: Leer y guardar Reservas
+    public void leerReservas() throws IOException {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fis = new FileInputStream("src/main/java/gestor/data/reservas.dat");
+            ois = new ObjectInputStream(fis);
+            Reserva r;
+
+            while (true){
+                r=(Reserva) ois.readObject();
+                reservas.add(r);
+            }
+        }catch (EOFException eof){
+            //System.out.println("Reserva agregada correctamente");
+        }catch (ClassNotFoundException eclas){
+            System.out.println("Clase no encontrada");
+        }finally {
+            if (ois != null){
+                ois.close();
+                fis.close();
+            }
+        }
+    }
+    public void guardarReserva() throws IOException {
+        FileOutputStream fos = new FileOutputStream("src/main/java/gestor/data/reservas.dat");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        for (Reserva r:reservas){
+
+            oos.writeObject(r);
+        }
+        oos.flush();
+
+        if (oos != null){
+            oos.close();
+            fos.close();
+        }
+    }
+
+
+    //TODO: Leer y guardar Eventos
+    public void leerEventos() throws IOException {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fis = new FileInputStream("src/main/java/gestor/data/eventos.dat");
+            ois = new ObjectInputStream(fis);
+            Evento e;
+
+            while (true){
+                e=(Evento) ois.readObject();
+                eventos.add(e);
+            }
+        }catch (EOFException eof){
+            //System.out.println("Evento agregado correctamente");
+        }catch (ClassNotFoundException eclas){
+            System.out.println("Clase no encontrada");
+        }finally {
+            if (ois != null){
+                ois.close();
+                fis.close();
+            }
+        }
+    }
+    public void guardarEventos() throws IOException {
+        FileOutputStream fos = new FileOutputStream("src/main/java/gestor/data/eventos.dat");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        for (Evento e:eventos){
+
+            oos.writeObject(e);
+        }
+        oos.flush();
+
+        if (oos != null){
+            oos.close();
+            fos.close();
+        }
+    }
+
 }

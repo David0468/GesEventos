@@ -1,9 +1,10 @@
 package gestor.clases;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-public class Reserva {
+public class Reserva implements Serializable {
     //Atributos
     public String id;
     public Asistente asistente_reserva=new Asistente();

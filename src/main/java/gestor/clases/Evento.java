@@ -1,18 +1,19 @@
 package gestor.clases;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Evento {
+public class Evento implements Serializable {
     //atriburos
     public String nombre;
     public String invitado;
     public Sala sala_evento = new Sala();
-    public LocalDate fecha;
-    public LocalTime hora;
+    public String fecha;
+    public String hora;
     public String tipo_evento;
     public String numero_asistentes_maximo;
     public ArrayList<Asistente> lista_asistentes;
@@ -20,7 +21,7 @@ public class Evento {
     //constructores
     public Evento(){}
 
-    public Evento(String nombre, String invitado, Sala sala_evento, LocalDate fecha, LocalTime hora, String tipo_evento, String numero_asistentes_maximo, ArrayList<Asistente> lista_asistentes) {
+    public Evento(String nombre, String invitado, Sala sala_evento, String fecha, String hora, String tipo_evento, String numero_asistentes_maximo, ArrayList<Asistente> lista_asistentes) {
         this.nombre = nombre;
         this.invitado = invitado;
         this.sala_evento = sala_evento;
@@ -32,7 +33,6 @@ public class Evento {
     }
 
     //getter y setter
-
     public String getNombre() {
         return nombre;
     }
@@ -57,19 +57,19 @@ public class Evento {
         this.sala_evento = sala_evento;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 

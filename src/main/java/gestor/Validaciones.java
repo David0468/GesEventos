@@ -1,6 +1,10 @@
 package gestor;
 
 import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Validaciones {
     //se hace todo con FOR
@@ -44,6 +48,27 @@ public class Validaciones {
         }
     }
 
+    // Validar el formato de una fecha (YYYY-MM-DD)
+    public static boolean validarFecha(String fecha) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate.parse(fecha, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    // Validar el formato de una hora (HH:MM)
+    public static boolean validarHora(String hora) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:MM");
+            LocalTime.parse(hora, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
 
 
     //Validador Contraseña:

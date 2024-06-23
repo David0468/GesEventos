@@ -4,10 +4,13 @@ import gestor.clases.Asistente;
 import gestor.clases.Usuario;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+
 
         Usuario activo = null;
         System.out.println("1. " + Validaciones.validarAlfabetoLatino("Niño NiñÁ"));
@@ -34,6 +37,7 @@ public class Main {
 
         //TODO: Menú autenticación: Login, o registro
         GestorEventos gestor = new GestorEventos();
+
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
 

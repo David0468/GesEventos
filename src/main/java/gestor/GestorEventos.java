@@ -101,12 +101,12 @@ public class GestorEventos {
         try {
             guardarUsuario();
         }catch (IOException ioe){
-            System.out.println("Problemas al guardar el usuario");
+            System.err.println("Problemas al guardar el usuario");
         }*/
         try{
             leerUsuario();
         }catch (IOException ioe){
-            System.out.println("Error al leer el usuario");
+            System.err.println("Error al leer el usuario");
         }
 
 
@@ -122,13 +122,13 @@ public class GestorEventos {
         try {
             guardarEventos();
         }catch (IOException ioe){
-            System.out.println("Problemas al guardar el Evento");
+            System.err.println("Problemas al guardar el Evento");
         }
         */
         try{
             leerEventos();
         }catch (IOException ioe){
-            System.out.println("Error al leer el Evento");
+            System.err.println("Error al leer el Evento");
         }
 
         /*// Reservas
@@ -142,13 +142,13 @@ public class GestorEventos {
         try {
             guardarReserva();
         }catch (IOException ioe){
-            System.out.println("Problemas al guardar el Evento");
+            System.err.println("Problemas al guardar el Evento");
         }
            */
         try{
             leerReservas();
         }catch (IOException ioe){
-            System.out.println("Error al leer la Reserva");
+            System.err.println("Error al leer la Reserva");
         }
     }
 
@@ -181,7 +181,7 @@ public class GestorEventos {
             }
         }
 
-        System.out.println("Correo electrónico o contraseña incorrectos.");
+        System.err.println("Correo electrónico o contraseña incorrectos.");
         return null;
     }
 
@@ -194,7 +194,7 @@ public class GestorEventos {
             System.out.print("Ingrese su nombre: ");
             nombre = scanner.next().trim();
             if (!Validaciones.validarAlfabetoLatino(nombre)){
-                System.out.println("El nombre no esta permitido.");
+                System.err.println("El nombre no esta permitido.");
             }
         }
 
@@ -203,7 +203,7 @@ public class GestorEventos {
             System.out.print("Ingrese su apellido: ");
             apellido = scanner.next().trim();
             if (!Validaciones.validarAlfabetoLatino(apellido)){
-                System.out.println("El apellido no esta permitido.");
+                System.err.println("El apellido no esta permitido.");
             }
         }
 
@@ -212,7 +212,7 @@ public class GestorEventos {
             System.out.print("Ingrese su correo electrónico: ");
             email = scanner.next().trim();
             if (!Validaciones.validarEmail(email)) {
-                System.out.println("Correo electrónico inválido.");
+                System.err.println("Correo electrónico inválido.");
             }
         }
 
@@ -221,7 +221,7 @@ public class GestorEventos {
             System.out.println("Ingrese una contraseña: ");
             contrasena = scanner.next().trim();
             if (!Validaciones.validarContrasena(contrasena)) {
-                System.out.println("Contraseña no valida");
+                System.err.println("Contraseña no valida");
             }
         }
 
@@ -230,7 +230,7 @@ public class GestorEventos {
             System.out.print("Ingrese su telefono: ");
             telefono = scanner.next().trim();
             if (!Validaciones.validarTelefono(telefono)) {
-                System.out.println("Telefono no valido.");
+                System.err.println("Telefono no valido.");
             }
         }
 
@@ -240,7 +240,7 @@ public class GestorEventos {
             try {
                 fechaNacimiento = LocalDate.parse(scanner.next().trim());
             } catch (Exception e) {
-                System.out.println("Fecha de nacimiento inválida. Formato correcto: YYYY-MM-DD.");
+                System.err.println("Fecha de nacimiento inválida. Formato correcto: YYYY-MM-DD.");
             }
         }
 
@@ -249,7 +249,7 @@ public class GestorEventos {
             System.out.print("Ingrese su DNI: ");
             dni = scanner.next().trim();
             if (!Validaciones.validarDNI(dni)) {
-                System.out.println("DNI no valido.");
+                System.err.println("DNI no valido.");
             }
         }
 
@@ -261,7 +261,7 @@ public class GestorEventos {
         try {
             guardarUsuario();
         }catch (IOException ioe){
-            System.out.println("Problemas al guardar el usuario");
+            System.err.println("Problemas al guardar el usuario");
         }
     }
 
@@ -276,7 +276,7 @@ public class GestorEventos {
             System.out.print("Ingrese el nombre del evento: ");
             nombreEvento = scanner.next().trim();
             if (!Validaciones.validarLetrasYNumeros(nombreEvento)){
-                System.out.println("El nombre no esta permitido.");
+                System.err.println("El nombre no esta permitido.");
             }
         }
 
@@ -285,7 +285,7 @@ public class GestorEventos {
             System.out.print("Ingrese el invitado del evento: ");
             invitado = scanner.next().trim();
             if (!Validaciones.validarAlfabetoLatino(invitado)){
-                System.out.println("El invitado no esta permitido.");
+                System.err.println("El invitado no esta permitido.");
             }
         }
 
@@ -296,7 +296,7 @@ public class GestorEventos {
             System.out.print("Ingrese la fecha del evento (YYYY-MM-DD): ");
             fecha = scanner.next().trim();
             if (!Validaciones.validarFecha(fecha)) {
-                System.out.println("Fecha no disponible. Formato correcto: YYYY-MM-DD.");
+                System.err.println("Fecha no disponible. Formato correcto: YYYY-MM-DD.");
             }
         }
 
@@ -305,7 +305,7 @@ public class GestorEventos {
             System.out.print("Ingrese la hora del evento (HH:MM): ");
             hora = scanner.next().trim();
             if (!Validaciones.validarHora(hora)) {
-                System.out.println("Hora no disponible. Formato correcto: HH:MM.");
+                System.err.println("Hora no disponible. Formato correcto: HH:MM.");
             }
         }
 
@@ -314,7 +314,7 @@ public class GestorEventos {
             System.out.print("Ingrese el tipo del evento: ");
             tipoEvento = scanner.next().trim();
             if (!Validaciones.validarAlfabetoLatino(tipoEvento)){
-                System.out.println("El tipo del evento no esta permitido.");
+                System.err.println("El tipo del evento no esta permitido.");
             }
         }
 
@@ -323,7 +323,7 @@ public class GestorEventos {
             System.out.print("Ingrese el maximo de asistentes para este evento: ");
             maxAsistentes = scanner.next().trim();
             if (!Validaciones.esNum(maxAsistentes)){
-                System.out.println("Error, intentalo otra vez.");
+                System.err.println("Error, intentalo otra vez.");
             }
         }
 
@@ -336,7 +336,7 @@ public class GestorEventos {
         try {
             guardarEventos();
         }catch (IOException ioe){
-            System.out.println("Problemas al guardar el Evento");
+            System.err.println("Problemas al guardar el Evento");
         }
     }
 
@@ -361,7 +361,7 @@ public class GestorEventos {
             eventos.remove(eventoAEliminar);
             System.out.println("¡Evento eliminado exitosamente!");
         } else {
-            System.out.println("No se encontró un evento con ese nombre.");
+            System.err.println("No se encontró un evento con ese nombre.");
         }
     }
 
@@ -379,7 +379,7 @@ public class GestorEventos {
         try{
             leerReservas();
         }catch (IOException ioe){
-            System.out.println("Error al leer la Reserva");
+            System.err.println("Error al leer la Reserva");
         }
     }
 
@@ -406,10 +406,10 @@ public class GestorEventos {
             try {
                 seleccion = Integer.parseInt(scanner.next().trim());
                 if (seleccion < 1 || seleccion > eventos.size()) {
-                    System.out.println("Selección inválida. Intente nuevamente.");
+                    System.err.println("Selección inválida. Intente nuevamente.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Entrada no válida. Intente nuevamente.");
+                System.err.println("Entrada no válida. Intente nuevamente.");
             }
         }
 
@@ -436,7 +436,7 @@ public class GestorEventos {
         try {
             guardarReserva();
         }catch (IOException ioe){
-            System.out.println("Problemas al guardar el Evento");
+            System.err.println("Problemas al guardar el Evento");
         }
     }
 
@@ -459,7 +459,7 @@ public class GestorEventos {
         }catch (EOFException eof){
             //System.out.println("Usuario agregado correctamente");
         }catch (ClassNotFoundException eclas){
-            System.out.println("Clase no encontrada");
+            System.err.println("Clase no encontrada");
         }finally {
             if (ois != null){
                 ois.close();
@@ -500,7 +500,7 @@ public class GestorEventos {
         }catch (EOFException eof){
             //System.out.println("Reserva agregada correctamente");
         }catch (ClassNotFoundException eclas){
-            System.out.println("Clase no encontrada");
+            System.err.println("Clase no encontrada");
         }finally {
             if (ois != null){
                 ois.close();
@@ -542,7 +542,7 @@ public class GestorEventos {
         }catch (EOFException eof){
             //System.out.println("Evento agregado correctamente");
         }catch (ClassNotFoundException eclas){
-            System.out.println("Clase no encontrada");
+            System.err.println("Clase no encontrada");
         }finally {
             if (ois != null){
                 ois.close();

@@ -82,7 +82,7 @@ public class Main {
                                     System.exit(0);
                                     break;
                                 default:
-                                    System.out.println("Opción no válida, intente nuevamente.");
+                                    System.err.println("Opción no válida, intente nuevamente.");
                             }
                         }
                     }else if (usuario instanceof gestor.clases.Asistente) {
@@ -107,7 +107,7 @@ public class Main {
                                     System.exit(0);
                                     break;
                                 default:
-                                    System.out.println("Opción no válida, intente nuevamente.");
+                                    System.err.println("Opción no válida, intente nuevamente.");
                             }
                         }
                     } else
@@ -120,7 +120,7 @@ public class Main {
                     System.out.println("Saliendo...");
                     break;
                 default:
-                    System.out.println("Opción no válida.");
+                    System.err.println("Opción no válida.");
             }
         }
     }
